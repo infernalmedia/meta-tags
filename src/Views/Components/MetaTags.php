@@ -1,6 +1,6 @@
 <?php
 
-namespace Infernalmedia\MetaTags;
+namespace Infernalmedia\MetaTags\Views\Components;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;

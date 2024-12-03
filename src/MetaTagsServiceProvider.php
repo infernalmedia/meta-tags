@@ -2,6 +2,7 @@
 
 namespace Infernalmedia\MetaTags;
 
+use Infernalmedia\MetaTags\Views\Components\MetaTags;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -17,6 +18,7 @@ class MetaTagsServiceProvider extends PackageServiceProvider
         $package
             ->name('meta-tags')
             ->hasConfigFile()
+            ->hasViews()
             ->hasViewComponent('infernal', MetaTags::class);
     }
 }
