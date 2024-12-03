@@ -47,7 +47,7 @@ class MetaTags extends Component
      */
     public function render()
     {
-        return view('infernal::meta-tags');
+        return view('infernal::components.meta-tags');
     }
 
     public function getAppUrl()
