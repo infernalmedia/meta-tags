@@ -10,10 +10,10 @@ Place the component in the head of your layout like this and you're good to go:
 
 ```html
 <head>
-    <x-meta-tags :page-title="$pageTitle ?? null"
-                 :meta-image="$seoImage ?? null"
-                 :custom-breadcrumb="$breadcrumb ?? null"
-                 :description="$pageDescription ?? null" />    
+    <x-infernal-meta-tags :page-title="$pageTitle ?? null"
+                          :meta-image="$seoImage ?? null"
+                          :custom-breadcrumb="$breadcrumb ?? null"
+                          :description="$pageDescription ?? null" />    
 </head>
 ```
 
@@ -40,16 +40,10 @@ php artisan vendor:publish --tag="meta-tags-views"
 ## Usage
 
 ```php
-<x-meta-tags :page-title="$pageTitle ?? null"
-             :meta-image="$seoImage ?? null"
-             :custom-breadcrumb="$breadcrumb ?? null"
-             :description="$pageDescription ?? null" />
-```
-
-## Testing
-
-```bash
-composer test
+<x-infernal-meta-tags :page-title="$pageTitle ?? null"
+                      :meta-image="$seoImage ?? null"
+                      :custom-breadcrumb="$breadcrumb ?? null"
+                      :description="$pageDescription ?? null" />
 ```
 
 ## Changelog
