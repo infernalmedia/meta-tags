@@ -1,4 +1,5 @@
 <?php
+
 return [
     'show_website_to_robots' => env('SHOW_WEBSITE_TO_ROBOTS', false),
     'enable_facebook_tracking' => env('ENABLE_FACEBOOK_TRACKING', false),
@@ -10,7 +11,7 @@ return [
         'facebook' => 'https://www.facebook.com/WebSite/',
         'twitter' => '',
     ],
-    'slogan' => "Your website catchy slogan",
+    'slogan' => 'Your website catchy slogan',
     'googleSiteVerification' => env('GOOGLE_SITE_VERIFICATION'),
     'facebookDomainVerification' => env('FACEBOOK_DOMAIN_VERIFICATION'),
     'googleTagManager' => env('GOOGLE_TAG_MANAGER'),

@@ -13,11 +13,14 @@ use Spatie\SchemaOrg\Schema;
 
 class MetaTags extends Component
 {
-    const DEFAULT_IMAGE = "https://website.com/images/default.jpg";
+    const DEFAULT_IMAGE = 'https://website.com/images/default.jpg';
 
     private $pageTitle;
+
     private $metaImage;
+
     private $description;
+
     private $customBreadcrumb;
 
     /**
@@ -44,7 +47,7 @@ class MetaTags extends Component
      */
     public function render()
     {
-        return view('components.meta-tags');
+        return view('infernal::meta-tags');
     }
 
     public function getAppUrl()
@@ -54,13 +57,13 @@ class MetaTags extends Component
 
     public function getGoogleSiteVerification()
     {
-        return config('meta.googleSiteVerification');
+        return config('meta-tags.googleSiteVerification');
     }
 
-    public function getGoogleTagManagerKey(): string | false
+    public function getGoogleTagManagerKey(): string|false
     {
-        if (config('meta.enable_google_tag_tracking')) {
-            return config('meta.googleTagManager');
+        if (config('meta-tags.enable_google_tag_tracking')) {
+            return config('meta-tags.googleTagManager');
         }
 
         return false;
@@ -68,9 +71,9 @@ class MetaTags extends Component
 
     public function getGoogleTagManagerEnvironnement(): string
     {
-        if (config('meta.googleTagManagerAuth') && config('meta.googleTagManagerEnv')) {
-            $auth = config('meta.googleTagManagerAuth');
-            $env = config('meta.googleTagManagerEnv');
+        if (config('meta-tags.googleTagManagerAuth') && config('meta-tags.googleTagManagerEnv')) {
+            $auth = config('meta-tags.googleTagManagerAuth');
+            $env = config('meta-tags.googleTagManagerEnv');
 
             return "&gtm_auth={$auth}&gtm_preview={$env}&gtm_cookies_win=x";
         }
@@ -78,10 +81,10 @@ class MetaTags extends Component
         return '';
     }
 
-    public function getFacebookDomainVerification(): string | false
+    public function getFacebookDomainVerification(): string|false
     {
-        if (config('meta.enable_facebook_tracking')) {
-            return config('meta.facebookDomainVerification');
+        if (config('meta-tags.enable_facebook_tracking')) {
+            return config('meta-tags.facebookDomainVerification');
         }
 
         return false;
@@ -95,40 +98,41 @@ class MetaTags extends Component
     public function getOgData()
     {
         return [
-            "type" => 'website',
-            "title" => $this->getTitle(),
-            "description" => $this->getDescription(),
-            "url" => URL::current(),
-            "locale" => str_replace('_', '-', app()->getLocale()),
-            "site_name" => config('app.name'),
-            "updated_time" => null,
+            'type' => 'website',
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'url' => URL::current(),
+            'locale' => str_replace('_', '-', app()->getLocale()),
+            'site_name' => config('app.name'),
+            'updated_time' => null,
         ];
     }
 
     public function getOgImage()
     {
         $image = $this->setOgImage();
+
         return [
-            "image" => $image->url,
-            "image:secure_url" => $image->url,
+            'image' => $image->url,
+            'image:secure_url' => $image->url,
         ];
     }
 
     public function getTwitterData()
     {
         return [
-            "card" => 'summary_large_image',
-            "title" => $this->pageTitle,
-            "site" => config('meta.social_networks.twitter'),
-            "description" => $this->getDescription(),
-            "image" => $this->getTwitterImage(),
-            "creator" => config('meta.social_networks.twitter'),
+            'card' => 'summary_large_image',
+            'title' => $this->pageTitle,
+            'site' => config('meta-tags.social_networks.twitter'),
+            'description' => $this->getDescription(),
+            'image' => $this->getTwitterImage(),
+            'creator' => config('meta-tags.social_networks.twitter'),
         ];
     }
 
     public function getSchema()
     {
-        $schema = new Graph();
+        $schema = new Graph;
         $schema->add($this->setOrganization());
         $schema->add($this->setWebsite());
         $schema->add($this->getBreadcrumbs());
@@ -141,18 +145,18 @@ class MetaTags extends Component
         return Schema::organization()
             ->name(config('app.name'))
             ->description($this->getDescription())
-            ->telephone(config('meta.phone'))
+            ->telephone(config('meta-tags.phone'))
             ->logo($this->getLogo())
             ->image($this->getSchemaImg())
             ->address($this->getAddress())
             ->url($this->getAppUrl())
-            ->sameAs(config('meta.social_networks'))
+            ->sameAs(config('meta-tags.social_networks'))
             ->contactPoint(Schema::contactPoint()
-                    ->telephone(config('meta.phone'))
-                    ->hoursAvailable($this->getOpeningHours())
-                    ->areaServed("North_America"))
-            ->areaServed("North_America")
-            ->slogan(__(config('meta.slogan')));
+                ->telephone(config('meta-tags.phone'))
+                ->hoursAvailable($this->getOpeningHours())
+                ->areaServed('North_America'))
+            ->areaServed('North_America')
+            ->slogan(__(config('meta-tags.slogan')));
     }
 
     protected function setWebsite()
@@ -161,24 +165,24 @@ class MetaTags extends Component
             ->name(config('app.name'))
             ->description($this->getDescription())
             ->url($this->getAppUrl())
-            ->sameAs(config('meta.social_networks'))
+            ->sameAs(config('meta-tags.social_networks'))
             ->inLanguage(App::getLocale());
     }
 
     private function getOpeningHours()
     {
         $days = [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
         ];
 
         return Schema::openingHoursSpecification()
             ->dayOfWeek($days)
-            ->opens(config('meta.opening_hours_start'))
-            ->closes(config('meta.opening_hours_end'));
+            ->opens(config('meta-tags.opening_hours_start'))
+            ->closes(config('meta-tags.opening_hours_end'));
     }
 
     public function getLogo()
@@ -200,6 +204,7 @@ class MetaTags extends Component
     private function setOgImage(): object
     {
         $image = $this->getDefaultImage();
+
         return (object) [
             'url' => $image,
         ];
@@ -217,18 +222,18 @@ class MetaTags extends Component
 
     public function getDefaultImage()
     {
-        return $this->metaImage ?? config('meta.social_networks.default_image');
+        return $this->metaImage ?? config('meta-tags.social_networks.default_image');
     }
 
     private function getAddress(): PostalAddress
     {
         return Schema::postalAddress()
-            ->telephone(config('meta.organization.phone'))
-            ->postalCode(config('meta.organization.postal_code'))
-            ->streetAddress(config('meta.organization.address'))
-            ->addressLocality(config('meta.organization.city'))
-            ->addressRegion(config('meta.organization.region'))
-            ->addressCountry(config('meta.organization.country'));
+            ->telephone(config('meta-tags.organization.phone'))
+            ->postalCode(config('meta-tags.organization.postal_code'))
+            ->streetAddress(config('meta-tags.organization.address'))
+            ->addressLocality(config('meta-tags.organization.city'))
+            ->addressRegion(config('meta-tags.organization.region'))
+            ->addressCountry(config('meta-tags.organization.country'));
     }
 
     protected function getBreadcrumbs(): BreadcrumbList

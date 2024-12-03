@@ -17,6 +17,6 @@ class MetaTagsServiceProvider extends PackageServiceProvider
         $package
             ->name('meta-tags')
             ->hasConfigFile()
-            ->hasViewComponent('meta-tags', 'meta-tags::meta-tags');
+            ->hasViewComponent('infernal', MetaTags::class);
     }
 }

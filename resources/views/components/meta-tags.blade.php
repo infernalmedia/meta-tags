@@ -1,5 +1,5 @@
 <title>{{ $getTitle() }}</title>
-@if (!config('meta.show_website_to_robots'))
+@if (!config('meta-tags.show_website_to_robots'))
     <meta name="robots"
           content="noindex nofollow" />
 @endif
