@@ -2,6 +2,7 @@
 
 namespace Infernalmedia\MetaTags\Views\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -43,11 +44,14 @@ class MetaTags extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View|\Closure|string
      */
     public function render()
     {
-        return view('meta-tags::components.meta-tags');
+        /** @var view-string $view */
+        $view = 'meta-tags::components.meta-tags';
+
+        return view($view);
     }
 
     public function getAppUrl()
@@ -180,7 +184,7 @@ class MetaTags extends Component
         ];
 
         return Schema::openingHoursSpecification()
-            ->dayOfWeek($days)
+            ->setProperty('dayOfWeek', $days)
             ->opens(config('meta-tags.opening_hours_start'))
             ->closes(config('meta-tags.opening_hours_end'));
     }
@@ -191,8 +195,8 @@ class MetaTags extends Component
 
         return Schema::ImageObject()
             ->url($path)
-            ->height('200px')
-            ->width('200px');
+            ->setProperty('height', '200px')
+            ->setProperty('width', '200px');
     }
 
     private function getSchemaImg()

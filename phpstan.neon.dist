@@ -9,3 +9,7 @@ parameters:
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - identifier: larastan.noEnvCallsOutsideOfConfig
+          path: config
